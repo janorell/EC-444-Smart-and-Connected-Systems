@@ -1,0 +1,16 @@
+Weather report for the next three days 
+
+9/6/19 
+High of 67 
+Low of 59
+
+9/7/19 
+High of 67 
+Low of 59
+
+9/8/19
+High of 75 
+Low of 56
+
+Current Value of Dow Jones
+26,819.84

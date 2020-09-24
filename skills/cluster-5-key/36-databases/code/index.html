@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<title>Database</title>
+<script src="/socket.io/socket.io.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+</style>
+<body>
+
+
+
+</body>
+<script>
+  var timestamp;
+  var deviceID;
+  var temperature;
+  var socket = io();
+  socket.on('message', function(msg){
+    // Parse received message from server
+    console.log(msg);
+    console.log(msg[Object.keys(msg)][0].temp);
+    timestamp = Object.keys(msg);
+    deviceID = msg[Object.keys(msg)][0].id;
+    temperature = msg[Object.keys(msg)][0].temp;
+
+  });
+</script>
+</html>

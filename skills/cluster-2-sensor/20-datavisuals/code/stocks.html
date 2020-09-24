@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+
+<head>
+	<title>Testing</title>
+
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+
+
+</head>
+
+<body>
+	<div id="update"></div>
+	<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+
+	<script>
+	var amzn = [];
+	var googl = [];
+	var fb = [];
+  var msft = [];
+		window.onload = function() {
+		var chart = new CanvasJS.Chart("chartContainer", {
+			//theme: "light2",
+			exportEnabled: false,
+			animationEnabled: true,
+			title: {
+				text: "Companies"
+			},
+			axisY: {
+				includeZero: false
+			},
+			data: [
+			{
+				type: "spline",
+				showInLegend: true,
+        markerColor: "red",
+				name: "FB",
+				dataPoints: fb
+			},
+			{
+				type: "spline",
+				showInLegend: true,
+        markerColor: "blue",
+				name: "GOOGL",
+				dataPoints: googl
+			},
+			{
+				type: "spline",
+				showInLegend: true,
+        markerColor: "orange",
+				name: "AMZN",
+				dataPoints: amzn
+			},
+      {
+				type: "spline",
+				showInLegend: true,
+        markerColor: "green",
+				name: "MSFT",
+				dataPoints: msft
+			}
+		]
+		});
+    chart.render();
+		}
+
+	</script>
+
+<script>
+	var socket = io();
+  var amzn2 = [];
+	var googl2 = [];
+	var fb2 = [];
+  var msft2 = [];
+	socket.on('transmit_data', function(data){
+		//console.log(data);
+    for (i = 0; i <data.length-1; i = i+4)
+    {
+      amzn2 = data[i].split(',');
+			fb2 = data[i+1].split(',');
+			googl2 = data[i+2].split(',');
+			msft2 = data[i+3].split(',');
+			amzn.push({
+        //x is date
+        //y is closing
+        // [1] is name of company
+        x: parseFloat(amzn2[0]),
+				y: parseFloat(amzn2[2])
+			});
+      googl.push({
+        x: parseFloat(googl2[0]),
+				y: parseFloat(googl2[2])
+			});
+      fb.push({
+        x: parseFloat(fb2[0]),
+				y: parseFloat(fb2[2])
+			});
+      msft.push({
+        x: parseFloat(msft2[0]),
+				y: parseFloat(msft2[2])
+			});
+			chart.render();
+    }});
+
+
+</script>
+</body>
+
+</html>

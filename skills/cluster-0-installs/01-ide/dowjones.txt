@@ -1,0 +1,2 @@
+Current Value of Dow Jones
+26,819.84
