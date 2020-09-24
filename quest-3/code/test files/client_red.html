@@ -1,0 +1,132 @@
+<!-- client side -->
+
+<!doctype html>
+<html>
+
+	<!-- HTML HEAD -->
+	<head>
+		<title>Line Chart</title>
+		<!-- Source for Canvas JS - points to the web - needs internet -->
+		<!-- Source for Socket.io - this one is local -->
+		<script src="/socket.io/socket.io.js"></script>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Style the header */
+    .header {
+      position: relative;
+      background-color: #f1f1f1;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 10px;
+      height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the footer */
+    .footer {
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+      .column {
+        width: 100%;
+      }
+    }
+    </style>
+	</head>
+
+	<body>
+<div class="header">
+  <h2>Header</h2>
+</div>
+
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+    <h1 align="center">Temperature</h1>
+    <h2><span id="sensor1"></span></h2>
+    <button align="center" type="button">Disable</button>
+  </div>
+  <div class="column" style="background-color:#bbb;">
+    <h1 align="center">Steps</h1>
+    <h2><span id="sensor2"></span></h2>
+    <button align="center" type="button">Disable</button>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+    <h1 align="center">Battery Level</h1>
+    <h2><span id="sensor3"></span></h2>
+    <button align="center" type="button">Disable</button>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+  <button class = "btn-green" onclick ="redled()">Connect</button>
+</div>
+
+<script>
+var steps_data;
+var therm_data;
+var voltage_data
+var socket = io.connect();
+function redled(){
+  console.log("button clicked");
+  socket.emit('clicked');
+}
+		window.onload = function() {
+			document.getElementById("sensor1").innerHTML = therm_data;
+			document.getElementById("sensor2").innerHTML = steps_data;
+			document.getElementById("sensor3").innerHTML = voltage_data;
+		}
+</script>
+	<script>
+	var socket = io();
+	var allData;
+	socket.on('transmit_data', function(data){
+		console.log(data);
+		allData = data[data.length-2].split(',');
+    console.log(data.length);
+    console.log("all data" + allData);
+    steps_data = parseFloat(allData[0]);
+    therm_data = parseFloat(allData[1]);
+    voltage_data = parseFloat(allData[2]);
+    // steps_data.push(parseFloat(allData[0]));
+    // therm_data.push(parseFloat(allData[1]));
+  	// voltage_data.push(parseFloat(allData[2]));
+
+		// for (i = 0; i < data.length-1; i++) {
+		// 	allData = data[i].split(',');
+    //   steps_data.push(parseFloat(allData[0]));
+    //   therm_data.push(parseFloat(allData[1]));
+  	// 	voltage_data.push(parseFloat(allData[2]));
+		// }
+
+});
+	</script>
+
+
+	</body>
+</html>
+<META HTTP-EQUIV="refresh" CONTENT="10">

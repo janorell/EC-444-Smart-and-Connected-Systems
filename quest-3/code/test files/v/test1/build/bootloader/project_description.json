@@ -1,0 +1,18 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/Users/jenninorell/EC444/esp-idf/components/bootloader/subproject",
+    "build_dir":          "/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader",
+    "config_file":        "/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.1-dev-141-ga7e8d87d3-dirty",
+    "phy_data_partition": "",
+    "monitor_baud" : "115200",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/Users/jenninorell/EC444/esp-idf/components/efuse/Kconfig;/Users/jenninorell/EC444/esp-idf/components/esp32/Kconfig;/Users/jenninorell/EC444/esp-idf/components/esp_common/Kconfig;/Users/jenninorell/EC444/esp-idf/components/log/Kconfig;/Users/jenninorell/EC444/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/Users/jenninorell/EC444/esp-idf/components/bootloader/Kconfig.projbuild;/Users/jenninorell/EC444/esp-idf/components/esptool_py/Kconfig.projbuild;/Users/jenninorell/EC444/esp-idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_rom", "esptool_py", "log", "main", "micro-ecc", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/Users/jenninorell/EC444/esp-idf/components/bootloader", "/Users/jenninorell/EC444/esp-idf/components/bootloader_support", "/Users/jenninorell/EC444/esp-idf/components/efuse", "/Users/jenninorell/EC444/esp-idf/components/esp32", "/Users/jenninorell/EC444/esp-idf/components/esp_common", "/Users/jenninorell/EC444/esp-idf/components/esp_rom", "/Users/jenninorell/EC444/esp-idf/components/esptool_py", "/Users/jenninorell/EC444/esp-idf/components/log", "/Users/jenninorell/EC444/esp-idf/components/bootloader/subproject/main", "/Users/jenninorell/EC444/esp-idf/components/bootloader/subproject/components/micro-ecc", "/Users/jenninorell/EC444/esp-idf/components/partition_table", "/Users/jenninorell/EC444/esp-idf/components/soc", "/Users/jenninorell/EC444/esp-idf/components/spi_flash", "/Users/jenninorell/EC444/esp-idf/components/xtensa", "" ]
+}

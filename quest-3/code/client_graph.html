@@ -1,0 +1,236 @@
+<!-- client side -->
+<!doctype html>
+<html>
+	<!-- HTML HEAD -->
+	<head>
+		<title>Line Chart</title>
+		<!-- Source for Canvas JS - points to the web - needs internet -->
+		<!-- Source for Socket.io - this one is local -->
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Style the header */
+    .header {
+      position: relative;
+      background-color: #f1f1f1;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 10px;
+      height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the footer */
+    .footer {
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+      .column {
+        width: 100%;
+      }
+    }
+    </style>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function toggle_temp() {
+				var e = document.getElementById("chartTemp");
+				if(e.style.display == 'block')
+					e.style.display = 'none';
+				else
+					e.style.display = 'block';
+			}
+			function toggle_steps() {
+					var e = document.getElementById("chartSteps");
+					if(e.style.display == 'block')
+							e.style.display = 'none';
+					else
+							e.style.display = 'block';
+			}
+			function toggle_volt() {
+					var e = document.getElementById("chartVol");
+					if(e.style.display == 'block')
+							e.style.display = 'none';
+					else
+							e.style.display = 'block';
+			}
+		</script>
+		<script>
+			function refreshPage(){
+				 window.location.reload();
+			}
+		</script>
+		<div class="header">
+  			<h2>Quest 3: Wearable Device</h2>
+		</div>
+
+		<div class="footer">
+			<button onclick="redled()">Click me to find device</button>
+			<script src="/socket.io/socket.io.js"></script>
+			<script>
+				var socket = io.connect();
+				function redled(){
+				   socket.emit('clicked');
+				}
+				socket.on('buttonUpdate', function(data){
+					 document.getElementById("redbutton").innerHTML = ' ';
+				});
+			</script>
+		</div> 
+		<div class="row">
+			<div class="column" style="background-color:rgb(114, 172, 182);">
+				<h1 align="center">Temperature</h1>
+				<h2 align="center"><span id="sensor1"></span></h2>
+			</div>
+			<div class="column" style="background-color:rgb(143, 199, 211);">
+				<h1 align="center">Steps</h1>
+				<h2 align="center"><span id="sensor2"></span></h2>
+			</div>
+			<div class="column" style="background-color:rgb(139, 216, 230);">
+				<h1 align="center">Battery Level</h1>
+				<h2 align="center"><span id="sensor3"></span></h2>
+			</div>
+		</div>
+
+		<div id="water_reminder"></div>
+
+<script>
+	var steps_data;
+	var therm_data;
+	var voltage_data;
+	var water_data;
+	var arrsteps_data = [];
+	var arrtherm_data =[];
+	var arrvoltage_data=[];
+	var test;
+	var socket = io();
+	var allData;
+	socket.on('transmit_data', function(data){
+		console.log(data);
+		allData = data.split(',');
+		console.log(data.length);
+		steps_data = parseFloat(allData[0]);
+		therm_data = parseFloat(allData[1]);
+		voltage_data = parseFloat(allData[2]);
+		water_data = parseFloat(allData[3]);
+		console.log("steps " + steps_data);
+		console.log("therm " + therm_data);
+		console.log("volt " + voltage_data);
+		console.log("water " + water_data);	
+
+		if (water_data == 1) {
+			document.getElementById("water_reminder").innerHTML = "Remember to drink water!";	
+		} else {
+			document.getElementById("water_reminder").innerHTML = "Water reminder";		
+		}
+		arrsteps_data.push({
+			x: 0,
+			y: parseFloat(allData[0]) //indexing for temperature data
+		});
+		arrtherm_data.push({
+			x: 0,
+			y: parseFloat(allData[1]) //indexing for ir distance data
+		});
+		arrvoltage_data.push({
+			x: 0,
+			y: parseFloat(allData[2]) //indexing for ultrasonic distance data
+		});
+		var chartTemp = new CanvasJS.Chart("chartTemp", {
+								theme: "light1",
+								exportEnabled: false,
+								animationEnabled: true,
+								title: {
+									text: "Temperature"
+								},
+								axisY: {
+									title: "Temperature (in °C)",
+									includeZero: false
+								},
+								data: [{
+									type: "bar",
+									showInLegend: true,
+									name: "Thermistor",
+									markerColor: "green",
+									dataPoints: arrtherm_data
+								}]
+		});
+		chartTemp.render();
+		//formatting styles for IR distance graph
+		var chartSteps = new CanvasJS.Chart("chartSteps", {
+								theme: "light1",
+								exportEnabled: false,
+								animationEnabled: true,
+								title: {
+									text: "Step Count"
+								},
+								axisY: {
+									title: "Step Count",
+									includeZero: false
+								},
+								data: [{
+									type: "bar",
+									showInLegend: true,
+									name: "Step Counting",
+									markerColor: "red",
+									dataPoints: arrsteps_data
+								}]
+		});
+		chartSteps.render();
+		//formatting styles for Ultrasonic graph
+		var chartVol = new CanvasJS.Chart("chartVol", {
+								theme: "light1",
+								exportEnabled: false,
+								animationEnabled: true,
+								title: {
+									text: "Voltage"
+								},
+								axisY: {
+									title: "Voltage (in V)",
+									includeZero: false
+								},
+								data: [{
+									type: "bar",
+									showInLegend: true,
+									name: "Voltage",
+									markerColor: "blue",
+									dataPoints: arrvoltage_data
+								}]
+		});
+		chartVol.render();
+		document.getElementById("sensor1").innerHTML = therm_data;
+		document.getElementById("sensor2").innerHTML = steps_data;
+		document.getElementById("sensor3").innerHTML = voltage_data;
+		});
+		</script>
+		<div id="chartTemp" style="height: 500px; width: 80%;"></div>
+		<div id="chartSteps" style="height: 500px; width: 80%;"></div>
+		<div id="chartVol" style="height: 500px; width: 80%;"></div>
+	</body>
+</html>
+<META HTTP-EQUIV="refresh" CONTENT="2">

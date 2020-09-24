@@ -1,0 +1,13 @@
+# Target labels
+ mconf-idf
+# Source files and their labels
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/CMakeFiles/mconf-idf
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/CMakeFiles/mconf-idf.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/CMakeFiles/mconf-idf-complete.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-install.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-mkdir.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-download.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-update.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-patch.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-configure.rule
+/Users/jenninorell/Documents/GitHub/Team7-Schuweh-Kuchibhotla-Norell/quest-3/code/v/test1/build/bootloader/mconf-idf-prefix/src/mconf-idf-stamp/mconf-idf-build.rule

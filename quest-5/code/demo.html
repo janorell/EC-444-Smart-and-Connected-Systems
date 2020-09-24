@@ -1,0 +1,73 @@
+<!-- Team 7: Vindhya Kuchibhotla, Jennifer Norell, Vanessa Schuweh
+EC444, Fall 2019 -->
+<!-- Using Bootstrap CSS for table formatting  -->
+<!-- Launched via demo.js file -->
+<!DOCTYPE html>
+<html>
+<title>Test</title>
+<script src="/socket.io/socket.io.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+
+</style>
+<body>
+
+    <div>
+      <h1 style="color:cornflowerblue;">Authorization Logs</h1>
+      <hr style="margin:auto;width:40%">
+    </div>
+
+    <div>
+    <table class="table" id=data>
+      <thead>
+        <tr>
+          <th scope="col">Timestamp</th>
+          <th scope="col">Fob ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Hub ID</th>
+          <th scope="col">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<script>
+// Variable declarations for data
+  var timestamp;
+  var fobID;
+  var hubID;
+  var name;
+  var location;
+  // Socket access - on 'database' listener, emitted from JS
+  var socket = io();
+  socket.on('database', function(data) {
+    // parse data recieved as a JSON
+      console.log(data);
+      timestamp = Object.keys(data)[0];
+      console.log(timestamp);
+      hubID = data[timestamp][0].hubID;
+      console.log(hubID);
+      fobID = data[timestamp][0].fobID;
+      console.log(fobID);
+      name = data[timestamp][0].name;
+      console.log(name);
+      l = data[timestamp][0].place;
+      console.log(l);
+
+      // Dynamically append the data from the database to a table
+    document.getElementById('data').innerHTML += '<tr><td>'+JSON.stringify(aTime)+'</td><td>'+JSON.stringify(fobID)+'</td><td>'+JSON.stringify(name)+'</td><td>'+JSON.stringify(hubID)+'</td><td>'+JSON.stringify(l)+'</td></tr>';
+
+});
+
+</script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

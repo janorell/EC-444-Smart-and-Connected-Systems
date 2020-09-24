@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+
+<head>
+	<title>Testing</title>
+
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+
+
+</head>
+
+<body>
+	<div id="update"></div>
+	<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+
+	<script>
+	var therm_data = [];
+	var ir_data = [];
+	var ultra_data = [];
+		window.onload = function() {
+		var chart = new CanvasJS.Chart("chartContainer", {
+			//theme: "light2",
+			exportEnabled: false,
+			animationEnabled: true,
+			title: {
+				text: "Log Data"
+			},
+			axisY: {
+				includeZero: false
+			},
+			data: [
+			{
+				type: "line",
+				showInLegend: true,
+				name: "Thermistor",
+				dataPoints: therm_data
+			},
+			{
+				type: "line",
+				showInLegend: true,
+				name: "IR",
+				dataPoints: ir_data
+			},
+			{
+				type: "line",
+				showInLegend: true,
+				name: "Ultrasonic",
+				dataPoints: ultra_data
+			}
+		]
+		});
+		chart.render();
+		}
+	</script>
+
+<script>
+	var socket = io();
+	var i = 0;
+	var allData;
+	socket.on('message', function(data){
+		console.log(data);
+		document.getElementById("update").innerHTML = msg;
+			therm_data.push({
+				x: i,
+				y: data.temp
+			});
+			ir_data.push({
+				x: i,
+				y: data.ir
+			});
+			ultra_data.push({
+				x: i,
+				y: data.ultrasonic
+			});
+			i++;
+			if (dps.length > dataLength) {
+				dps.shift();
+			}
+			chart.render();
+
+	});
+</script>
+</body>
+
+</html>

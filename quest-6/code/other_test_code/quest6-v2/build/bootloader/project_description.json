@@ -1,0 +1,18 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader/subproject",
+    "build_dir":          "/Users/vanessaschuweh/Documents/EC444/esp-idf/Quests/Quest6/quest6/build/bootloader",
+    "config_file":        "/Users/vanessaschuweh/Documents/EC444/esp-idf/Quests/Quest6/quest6/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.1-dev-141-ga7e8d87d3-dirty",
+    "phy_data_partition": "",
+    "monitor_baud" : "115200",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/efuse/Kconfig;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esp32/Kconfig;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esp_common/Kconfig;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/log/Kconfig;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader/Kconfig.projbuild;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esptool_py/Kconfig.projbuild;/Users/vanessaschuweh/Documents/EC444/esp-idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_rom", "esptool_py", "log", "main", "micro-ecc", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader_support", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/efuse", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esp32", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esp_common", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esp_rom", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/esptool_py", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/log", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader/subproject/main", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/bootloader/subproject/components/micro-ecc", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/partition_table", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/soc", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/spi_flash", "/Users/vanessaschuweh/Documents/EC444/esp-idf/components/xtensa", "" ]
+}

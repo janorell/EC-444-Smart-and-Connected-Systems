@@ -1,0 +1,88 @@
+<!-- client side -->
+
+<!doctype html>
+<html>
+
+	<!-- HTML HEAD -->
+	<head>
+		<title>Line Chart</title>
+		<!-- Source for Canvas JS - points to the web - needs internet -->
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<!-- Source for Socket.io - this one is local -->
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+
+
+
+	<body>
+		<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+
+		<script>
+		var therm_data = [];
+		var ir_data = [];
+		var ultra_data = [];
+			window.onload = function() {
+			var chart = new CanvasJS.Chart("chartContainer", {
+				//theme: "light2",
+				exportEnabled: true,
+				animationEnabled: true,
+				title: {
+					text: "Log Data"
+				},
+				axisY: {
+					includeZero: false
+				},
+				data: [
+				{
+					type: "scatter",
+					showInLegend: true,
+					name: "Thermistor",
+					dataPoints: therm_data
+				},
+				{
+					type: "scatter",
+					showInLegend: true,
+					name: "IR",
+					dataPoints: ir_data
+				},
+				{
+					type: "scatter",
+					showInLegend: true,
+					name: "Ultrasonic",
+					dataPoints: ultra_data
+				}
+			]
+			});
+			chart.render();
+			}
+		</script>
+
+		<script>
+			var socket = io();
+			var allData;
+			socket.on('transmit_data', function(data){
+				console.log(data)
+				// trying to have the correct segments of data added to the graph
+				for (i = 0; i < data.length-1; i++) {
+
+					allData = data[i].split(',');
+					therm_data.push({
+                        x: i,
+                        y: parseFloat(allData[0])
+                    });
+					ir_data.push({
+                        x: i,
+                        y: parseFloat(allData[1])
+                    });
+					ultra_data.push({
+                        x: i,
+                        y: parseFloat(allData[2])
+                    });
+					window++;
+				}
+				//window++;
+			});
+		</script>
+	</body>
+</html>
+<META HTTP-EQUIV="refresh" CONTENT="5">

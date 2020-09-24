@@ -1,0 +1,110 @@
+<!-- Team 7: Vindhya Kuchibhotla, Jennifer Norell, Vanessa Schuweh
+EC444, Fall 2019 -->
+<!-- Using Bootstrap CSS for table formatting  -->
+<!-- Launched via demo.js file -->
+<!DOCTYPE html>
+<html>
+<title>Test</title>
+<script src="/socket.io/socket.io.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+  .heading {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+</style>
+<body>
+
+    <div class="heading">
+      <h1 style="color:cornflowerblue;">Quest 6: Rollup or Rolloff</h1>
+      <hr style="margin:auto;width:40%">
+    </div>
+    <a class="btn btn-info btn-lg" style="padding:10px;" onclick="goAuto()">Autonomous</a>
+    <a class="btn btn-info btn-lg" style="padding:10px;" onclick="goManual()">Manual</a>
+    <iframe src="http://192.168.1.145:8081/" height="320px" width="640px" scrolling="no"></iframe>
+    <div style="text-align: center; padding:20px;">
+      <a class="btn btn-info btn-lg" style="padding:10px;" onclick="goFaster()">Increase speed <span class="glyphicon glyphicon-arrow-up"></span></a>
+      <br>
+      <a class="btn btn-info btn-lg" style="padding:10px; margin-top:10px; margin-bottom:10px; margin-left:150px; margin-right:75px;" onclick="goLeft()"><span class="glyphicon glyphicon-arrow-left"></span> Turn Left</a>
+      <a class="btn btn-info btn-lg" style="padding:10px; margin-top:10px; margin-bottom:10px; margin-right:150px; margin-left:75px;" onclick="goRight()"> Turn Right <span class="glyphicon glyphicon-arrow-right"></span></a>
+      <br>
+      <a class="btn btn-info btn-lg" style="padding:10px;" onclick="goSlower()">Decrease Speed <span class="glyphicon glyphicon-arrow-down"></span></a>
+    </div>
+    <br>
+    <div>
+    <table class="table" id=data>
+      <thead>
+        <tr>
+          <th scope="col">Beacon ID</th>
+          <th scope="col">Split Time</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // Communication with Node server
+  // on button clicks
+  var socket = io();
+  function goFaster() {
+     socket.emit('fast', {data:"fast"});
+     console.log("fast clicked");
+  }
+  function goSlower() {
+     socket.emit('slow', {data:"slow"});
+     console.log("slow clicked");
+  }
+  function goLeft() {
+     socket.emit('left', {data:"left"});
+     console.log("left clicked");
+  }
+  function goRight() {
+     socket.emit('right', {data:"right"});
+     console.log("right clicked");
+  }
+  function goAuto() {
+     socket.emit('auto', {data:"auto"});
+     console.log("auto clicked");
+  }
+  function goManual() {
+     socket.emit('manual', {data:"manual"});
+     console.log("manual clicked");
+  }
+</script>
+<script>
+// Variable declarations for data
+  var beaconID;
+  var splitTime;
+
+  // Socket access - on 'database' listener, emitted from JS
+  var socket = io();
+  socket.on('database', function(data) {
+    // parse data recieved as a JSON
+      console.log(data);
+      beaconID = Object.keys(data)[0];
+      console.log(beaconID);
+      splitTime = data[beaconID][0].split;
+      console.log(splitTime);
+
+      // Dynamically append the data from the database to a table
+    document.getElementById('data').innerHTML += '<tr><td>'+JSON.stringify(beaconID)+'</td><td>'+JSON.stringify(splitTime)+'</td></tr>';
+
+});
+
+</script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

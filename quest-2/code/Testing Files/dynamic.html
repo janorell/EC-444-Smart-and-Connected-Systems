@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+    <script>
+    window.onload = function () {
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        title :{
+            text: "Dynamic Data"
+        },
+        axisY: {
+            includeZero: false
+        },      
+        data: [{
+            type: "line",
+            dataPoints: therm_data
+        }]
+    });
+
+    var updateInterval = 10000;
+    var dataLength = 5; // number of dataPoints visible at any point
+    var therm_data = [];
+
+    var updateChart = function (dataLen) {
+       // count = count || 1;
+
+        //for (var j = 0; j < count; j++) {
+            var socket = io();
+			var allData;
+			socket.on('transmit_data', function(data){
+                for (i = 0; i < data.length-1; i++) {
+                    allData = data[i].split(',');
+                    therm_data[i] = {
+                        x: i,
+                        y: parseFloat(allData[0])
+                    };
+                
+                        // ir_data.push({
+                        // 	x: i,
+                        // 	y: parseFloat(allData[1])
+                        // });
+                        // ultra_data.push({
+                        // 	x: i,
+                        // 	y: parseFloat(allData[2])
+                        // });
+                    }
+                // console.log("therm data len: ", therm_data.length)
+                console.log("therm data: ", therm_data)
+                if (therm_data.length > dataLen) {
+                    therm_data.shift();
+                }
+
+                console.log("Rendering...")
+                chart.render();
+            });
+        //}
+
+        // if (therm_data.length > dataLength) {
+        //     therm_data.shift();
+        // }
+
+        // console.log("Rendering...")
+        // chart.render();
+    };
+    updateChart(dataLength);
+    setInterval(function(){updateChart()}, updateInterval);
+    };
+    </script>
+
+    </head>
+    <body>
+        <div id="chartContainer" style="height: 370px; width:100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </body>
+</html>
